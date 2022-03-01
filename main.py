@@ -131,7 +131,7 @@ if __name__ == '__main__':
     ll.push(6)
     ll.push(6)
 
-    ll.print(True)
+    ll.print()
 
     ll.purge(4)
 
