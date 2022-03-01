@@ -1,8 +1,5 @@
 def addr(thing):
-    if thing is None:
-        return 'None'
-    else:
-        return hex(id(thing))
+    return hex(id(thing)) if thing is not None else 'None'
 
 
 class Node:
@@ -18,20 +15,6 @@ class Node:
     def __str__(self):
         return f'Node<{addr(self)}>: data={self.data} next={addr(self.next)} prev={addr(self.prev)}'
 
-    def remove(self):
-        """
-        removes any next or prev references, and thus itself
-        """
-        if self.next is not None and self.prev is not None:
-            self.next.prev = self.prev
-            self.prev.next = self.next
-        if self.next is not None:
-            self.next.prev = None
-        if self.prev is not None:
-            self.prev.next = None
-        self.prev = None
-        self.next = None
-
 
 class LinkedList:
     """
@@ -42,24 +25,46 @@ class LinkedList:
         self.head = None
         self.tail = None
 
+    def remove(self, node):
+        if node == self.head:
+            if node.next is not None and node.prev is not None:
+                node.prev.next = node.next
+                node.next.prev = node.prev
+                self.head = node.next
+            else:
+                self.head = None
+        else:
+            if node.next is not None and node.prev is not None:
+                node.prev.next = node.next
+                node.next.prev = node.prev
+            elif node.next is None:
+                node.prev.next = None
+            elif node.prev is None:
+                node.next.prev = None
+
     def purge(self, data):
         """
         removes all Nodes where Nodes.data == data
         """
         curr = self.find(data)
 
-        while curr is not None and curr.data == data:
-            curr.remove()
+        while curr is not None:
+            self.remove(curr)
             curr = self.find(data)
 
     def find(self, data):
         """
         finds and returns the first Node where Node.data == data
         """
+        out = 0
         curr = self.head
-        while curr is not None and curr.data != data:
-            curr = curr.next;
-        return curr
+
+        while curr.data != data and out == 0:
+            curr = curr.next
+            if curr == self.head:
+                out = 1
+
+        return curr if curr is not None and curr.data == data else None
 
     def pop(self):
         """
@@ -92,7 +97,7 @@ class LinkedList:
             self.tail.next = new
             new.prev = self.tail
 
-    def print(self):
+    def print(self, newline=False):
         """
         prints a linked list in its entirety
         """
@@ -103,6 +108,7 @@ class LinkedList:
             curr = curr.next
             if curr is self.head:
                 out = 1
+        print('\n')
 
 
 if __name__ == '__main__':
@@ -125,6 +131,12 @@ if __name__ == '__main__':
     ll.push(6)
     ll.push(6)
 
+    ll.print(True)
+
     ll.purge(4)
+
+    ll.remove(ll.find(5))
+    ll.remove(ll.find(5))
+    ll.remove(ll.find(5))
 
     ll.print()
