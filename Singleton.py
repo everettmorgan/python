@@ -3,32 +3,24 @@ class Singleton:
 
     def __new__(cls, clsname, bases, attrs):
         if clsname not in cls.instances:
-            cls.instances[clsname] = type(clsname, bases, attrs)
+            cls.instances[clsname] = type(clsname, bases, attrs or {})
         return cls.instances[clsname]
 
 
 class Foo(Singleton):
-    def __new__(cls, data):
-        if cls.__name__ not in cls.instances:
-            Singleton.__new__(cls, cls.__name__, (), {
-                'data': data,
-            })
-        return cls.instances[cls.__name__]
+    def __new__(cls, *args):
+        return Singleton.__new__(cls, cls.__name__, (), *args)
 
 
 class Bar(Singleton):
-    def __new__(cls, data):
-        if cls.__name__ not in cls.instances:
-            Singleton.__new__(cls, cls.__name__, (), {
-                'data': data,
-            })
-        return cls.instances[cls.__name__]
+    def __new__(cls, *args):
+        return Singleton.__new__(cls, cls.__name__, (), *args)
 
 
 if __name__ == '__main__':
-    sa = Foo(1)
-    sb = Foo(2)
-    sc = Foo(3)
+    sa = Foo({'data': 1})
+    sb = Foo({'data': 2})
+    sc = Foo({'data': 3})
 
     print(sa.data)
     print(sb.data)
@@ -54,28 +46,28 @@ if __name__ == '__main__':
 
     print('===+++===+++===')
 
-    sd = Bar(5)
-    se = Bar(6)
-    sf = Bar(7)
+    sd = Bar({'a': 1})
+    se = Bar({'a': 2})
+    sf = Bar({'a': 3})
 
-    print(sd.data)
-    print(se.data)
-    print(sf.data)
+    print(sd.a)
+    print(se.a)
+    print(sf.a)
 
-    sd.data = 10
+    sd.a = 10
 
-    print(sd.data)
-    print(se.data)
-    print(sf.data)
+    print(sd.a)
+    print(se.a)
+    print(sf.a)
 
-    se.data = 11
+    se.a = 11
 
-    print(sd.data)
-    print(se.data)
-    print(sf.data)
+    print(sd.a)
+    print(se.a)
+    print(sf.a)
 
-    sd.data = 12
+    sd.a = 12
 
-    print(sd.data)
-    print(se.data)
-    print(sf.data)
+    print(sd.a)
+    print(se.a)
+    print(sf.a)
