@@ -10,9 +10,7 @@ class Singleton:
 class Foo(Singleton):
     def __new__(cls, data):
         if cls.__name__ not in cls.instances:
-            Singleton.__new__(cls, cls.__name__, (), {})
-            cls.instances[cls.__name__] = type(cls.__name__, (), {})
-            cls.instances[cls.__name__].data = data
+            Singleton.__new__(cls, cls.__name__, (), {'data': data})
         return cls.instances[cls.__name__]
 
 
