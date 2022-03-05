@@ -4,6 +4,7 @@ class Node:
         self.parent = None
         self.left = None
         self.right = None
+        self.letter = None
 
     def __str__(self):
         return f'<{hex(id(self))}> {self.data}'
@@ -21,30 +22,37 @@ def perfect_binary_tree():
     a.left = b
     a.right = c
     a.parent = None
+    a.letter = 'A'
 
     b.parent = a
     b.left = d
     b.right = e
+    b.letter = 'B'
 
     c.parent = a
     c.left = f
     c.right = g
+    c.letter = 'C'
 
     d.parent = b
     d.left = None
     d.right = None
+    d.letter = 'D'
 
     e.parent = b
     e.left = None
     e.right = None
+    e.letter = 'E'
 
     f.parent = c
     f.left = None
     f.right = None
+    f.letter = 'F'
 
     g.parent = c
     g.left = None
     g.right = None
+    g.letter = 'G'
 
     return a
 
@@ -77,28 +85,51 @@ def insert(node, data, height=0):
 def print_perfect_binary_tree(node, height=0):
     if node is not None:
         print_perfect_binary_tree(node.right, height + 1)
-        print(' ' * 4 * height, node.data)
+        print(' ' * 8 * height, node.data, f'({node.letter})')
         print_perfect_binary_tree(node.left, height + 1)
 
 
-def preorder_perfect_tree_traversal(node, fn=print):
+def preorder_perfect_tree_recursive(node, fn=print):
     """
     node, left, right
     """
     fn(node)
 
     if node.left is not None:
-        preorder_perfect_tree_traversal(node.left)
+        preorder_perfect_tree_recursive(node.left, fn)
     if node.right is not None:
-        preorder_perfect_tree_traversal(node.right)
+        preorder_perfect_tree_recursive(node.right, fn)
+
+
+def preorder_perfect_tree_corecursive(node, fn=print):
+    """
+    node, left, right
+    """
+    stk = []
+    curr = node
+
+    while True:
+        while curr is not None:
+            fn(curr)
+            stk.append(curr)
+            curr = curr.left
+
+        if len(stk) == 0:
+            return
+
+        curr = stk.pop()
+        curr = curr.right
 
 
 def breadth_first_perfect_tree_traversal(node):
     pass
+
 
 if __name__ == '__main__':
     tree = perfect_binary_tree()
 
     print_perfect_binary_tree(tree)
 
-    preorder_perfect_tree_traversal(tree)
+    preorder_perfect_tree_recursive(tree, lambda x: print(x.letter))
+
+    preorder_perfect_tree_corecursive(tree, lambda x: print(x.letter))
