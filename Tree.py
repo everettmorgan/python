@@ -1,87 +1,107 @@
 import random
+import uuid
+from enum import Enum
 
 
 class Node:
-    def __init__(self, data, parent=None, height=0):
+    def __init__(self, data):
+        self.id = uuid.uuid4()
         self.data = data
-        self.parent = parent
+        self.parent = None
         self.left = None
         self.right = None
-        # non-standard properties
-        self.path = None  # string representation of the path from root->node (for printing purposes)
-        self.height = height  # the height of the node (for printing purposes)
 
     def __str__(self):
-        return f'<{hex(id(self))}> {self.data} ({self.path})'
+        return f'<{self.id}> {self.data}'
 
 
-def __insert(node, data, height=0):
+def perfect_binary_tree():
+    a = Node(4)
+    b = Node(2)
+    c = Node(6)
+    d = Node(1)
+    e = Node(3)
+    f = Node(5)
+    g = Node(7)
+
+    a.left = b
+    a.right = c
+    a.parent = None
+
+    b.parent = a
+    b.left = d
+    b.right = e
+
+    c.parent = a
+    c.left = f
+    c.right = g
+
+    d.parent = b
+    d.left = None
+    d.right = None
+
+    e.parent = b
+    e.left = None
+    e.right = None
+
+    f.parent = c
+    f.left = None
+    f.right = None
+
+    g.parent = c
+    g.left = None
+    g.right = None
+
+    return a
+
+
+def insert(node, data, height=0):
+    def new(x):
+        new_node = Node(x)
+        new_node.parent = node
+        new_node.height = height + 1
+        return new_node
+
     # go left if data is smaller than root node
     if node.data >= data:
-        # if the space is empty, create a node and add it to the tree
+        # set the left node if the spot is open
         if node.left is None:
-            new = Node(data, node, height + 1)
-            new.path = f'{node.path}->L'
-            node.left = new
+            node.left = new(data)
         # otherwise, recursively walk down the left tree
         else:
-            __insert(node.left, data, height + 1)
+            insert(node.left, data, height + 1)
     # otherwise, go right
     else:
-        # if the space is empty, create a node and add it to the tree
+        # set the right node if the spot is open
         if node.right is None:
-            new = Node(data, node, height + 1)
-            new.path = f'{node.path}->R'
-            node.right = new
+            node.right = new(data)
         # otherwise, recursively walk down the right tree
         else:
-            __insert(node.right, data, height + 1)
+            insert(node.right, data, height + 1)
 
 
-def __walk(node, fn):
-    fn(node)
+def print_perfect_binary_tree(node, height=0):
+    if node is not None:
+        print_perfect_binary_tree(node.right, height + 1)
+        print(' ' * 4 * height, node.data)
+        print_perfect_binary_tree(node.left, height + 1)
+
+
+def preorder_perfect_tree_traversal(node):
+    """
+    node, left, right
+    """
+    print(node.data)
+
     if node.left is not None:
-        __walk(node.left, fn)
+        preorder_perfect_tree_traversal(node.left)
     if node.right is not None:
-        __walk(node.right, fn)
-
-
-def __nprint(x):
-    tabs = '-|-'*x.height
-    print(f'[ {x.height} ] {tabs} {x}')
-
-
-def walk(node, fn):
-    __walk(node, fn)
-
-
-def insert(node, data):
-    __insert(node, data)
-
-
-def nprint(node):
-    __walk(node, lambda x: __nprint(x))
-
-
-def find(node, data):
-    curr = node
-    while curr is not None and curr.data != data:
-        if curr.data >= data:
-            curr = curr.left
-        else:
-            curr = curr.right
-    return curr
+        preorder_perfect_tree_traversal(node.right)
 
 
 if __name__ == '__main__':
-    root = Node(125)
+    tree = perfect_binary_tree()
 
-    for i in range(50):
-        insert(root, random.randrange(250))
+    print_perfect_binary_tree(tree)
 
-    insert(root, 23)
-
-    nprint(root)
-
-    print(find(root, 23))
-
+    preorder_perfect_tree_traversal(tree)
