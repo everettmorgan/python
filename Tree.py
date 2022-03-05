@@ -1,18 +1,12 @@
-import random
-import uuid
-from enum import Enum
-
-
 class Node:
     def __init__(self, data):
-        self.id = uuid.uuid4()
         self.data = data
         self.parent = None
         self.left = None
         self.right = None
 
     def __str__(self):
-        return f'<{self.id}> {self.data}'
+        return f'<{hex(id(self))}> {self.data}'
 
 
 def perfect_binary_tree():
@@ -87,17 +81,20 @@ def print_perfect_binary_tree(node, height=0):
         print_perfect_binary_tree(node.left, height + 1)
 
 
-def preorder_perfect_tree_traversal(node):
+def preorder_perfect_tree_traversal(node, fn=print):
     """
     node, left, right
     """
-    print(node.data)
+    fn(node)
 
     if node.left is not None:
         preorder_perfect_tree_traversal(node.left)
     if node.right is not None:
         preorder_perfect_tree_traversal(node.right)
 
+
+def breadth_first_perfect_tree_traversal(node):
+    pass
 
 if __name__ == '__main__':
     tree = perfect_binary_tree()
