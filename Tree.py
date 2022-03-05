@@ -153,7 +153,7 @@ if __name__ == '__main__':
     print('  (recursive)')
     preorder_perfect_tree_recursive(tree, print_node)
 
-    print('  (corecursive) []')
+    print('  (corecursive)')
     preorder_perfect_tree_corecursive(tree, print_node)
 
     print('\n')
@@ -161,3 +161,39 @@ if __name__ == '__main__':
     print('BFD Traversal [A,B,C,D,E,F,G]')
     print('  (corecursive)')
     breadth_first_perfect_tree_corecursive(tree, print_node)
+
+    #                 7(G)
+    #         6(C)
+    #                 5(F)
+    # 4(A)
+    #                 3(E)
+    #         2(B)
+    #                 1(D)
+    #
+    # PreOrder Traversal [A, B, D, E, C, F, G]
+    #     (recursive)
+    #         4(A)
+    #         2(B)
+    #         1(D)
+    #         3(E)
+    #         6(C)
+    #         5(F)
+    #         7(G)
+    #     (corecursive)
+    #         4(A)
+    #         2(B)
+    #         1(D)
+    #         3(E)
+    #         6(C)
+    #         5(F)
+    #         7(G)
+    #
+    # BFD Traversal [A, B, C, D, E, F, G]
+    #     (corecursive)
+    #         4(A)
+    #         2(B)
+    #         6(C)
+    #         1(D)
+    #         3(E)
+    #         5(F)
+    #         7(G)
