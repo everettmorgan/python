@@ -121,8 +121,24 @@ def preorder_perfect_tree_corecursive(node, fn=print):
         curr = curr.right
 
 
-def breadth_first_perfect_tree_traversal(node):
-    pass
+def breadth_first_perfect_tree_corecursive(node, fn=print):
+    curr = node
+    stk = []
+
+    while True:
+        while curr is not None:
+            fn(curr)
+            if curr.left is not None:
+                stk.append(curr.left)
+            if curr.right is not None:
+                stk.append(curr.right)
+            if len(stk) == 0:
+                return
+            curr = stk.pop(0)
+
+
+def print_node(node):
+    print(f'    {node.data} ({node.letter})')
 
 
 if __name__ == '__main__':
@@ -130,6 +146,18 @@ if __name__ == '__main__':
 
     print_perfect_binary_tree(tree)
 
-    preorder_perfect_tree_recursive(tree, lambda x: print(x.letter))
+    print('\n')
 
-    preorder_perfect_tree_corecursive(tree, lambda x: print(x.letter))
+    print('PreOrder Traversal [A,B,D,E,C,F,G]')
+
+    print('  (recursive)')
+    preorder_perfect_tree_recursive(tree, print_node)
+
+    print('  (corecursive) []')
+    preorder_perfect_tree_corecursive(tree, print_node)
+
+    print('\n')
+
+    print('BFD Traversal [A,B,C,D,E,F,G]')
+    print('  (corecursive)')
+    breadth_first_perfect_tree_corecursive(tree, print_node)
