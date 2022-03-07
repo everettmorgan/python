@@ -1,0 +1,121 @@
+from abc import ABC, abstractmethod
+
+
+class Item(ABC):
+    @abstractmethod
+    def name(self):
+        ...
+
+    @abstractmethod
+    def packing(self):
+        ...
+
+    @abstractmethod
+    def price(self):
+        ...
+
+
+class Packing(ABC):
+    @abstractmethod
+    def pack(self):
+        ...
+
+
+class Wrapper(Packing):
+    def pack(self):
+        return 'Wrapper'
+
+
+class Bottle(Packing):
+    def pack(self):
+        return 'Bottle'
+
+
+class Burger(Item, ABC):
+    def packing(self):
+        return Wrapper()
+
+    @abstractmethod
+    def price(self):
+        ...
+
+
+class ColdDrink(Item, ABC):
+    def packing(self):
+        return Bottle()
+
+    @abstractmethod
+    def price(self):
+        ...
+
+
+class BeefBurger(Burger):
+    def name(self):
+        return 'Beef Burger'
+
+    def price(self):
+        return 14.99
+
+
+class VeggieBurger(Burger):
+    def name(self):
+        return 'Veggie Burger'
+
+    def price(self):
+        return 19.99
+
+
+class Coke(ColdDrink):
+    def name(self):
+        return 'Coke'
+
+    def price(self):
+        return 3.99
+
+
+class Pepsi(ColdDrink):
+    def name(self):
+        return 'Pepsi'
+
+    def price(self):
+        return 4.99
+
+
+class Meal:
+    items = []
+    price = 0
+
+    def __init__(self, name):
+        self.name = name
+
+    def add_item(self, item):
+        self.items.append(item)
+        self.price += item.price() if item is not None else 0
+
+    def display(self):
+        print(f'=== {self.name} ===')
+        for item in self.items:
+            print('Item:', item.name(), item.price())
+        print('Total:', round(self.price, 2), '\n')
+
+
+class MealBuilder:
+    def veggie(self):
+        meal = Meal('Veggie Meal')
+        meal.add_item(VeggieBurger())
+        meal.add_item(Pepsi())
+        return meal
+
+    def non_veggie(self):
+        meal = Meal('Non-Veggie Meal')
+        meal.add_item(BeefBurger())
+        meal.add_item(Coke())
+        return meal
+
+
+builder = MealBuilder()
+veg_meal = builder.veggie()
+non_veg_meal = builder.non_veggie()
+
+veg_meal.display()
+non_veg_meal.display()
