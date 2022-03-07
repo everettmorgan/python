@@ -95,7 +95,7 @@ class Meal:
     def display(self):
         print(f'=== {self.name} ===')
         for item in self.items:
-            print('Item:', item.name(), item.price())
+            print('Item:', item.name(), item.price(), 'Packing:', item.packing().pack())
         print('Total:', round(self.price, 2), '\n')
 
 
