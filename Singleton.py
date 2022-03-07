@@ -1,73 +1,21 @@
-class Singleton:
-    instances = {}
+class Singleton(type):
+    _instances = {}
 
-    def __new__(cls, clsname, bases, attrs):
-        if clsname not in cls.instances:
-            cls.instances[clsname] = type(clsname, bases, attrs or {})
-        return cls.instances[clsname]
-
-
-class Foo(Singleton):
-    def __new__(cls, *args):
-        return Singleton.__new__(cls, cls.__name__, (), *args)
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
 
 
-class Bar(Singleton):
-    def __new__(cls, *args):
-        return Singleton.__new__(cls, cls.__name__, (), *args)
+class Foo(metaclass=Singleton):
+    def __init__(self, data):
+        self.data = data
 
 
 if __name__ == '__main__':
-    sa = Foo({'data': 1})
-    sb = Foo({'data': 2})
-    sc = Foo({'data': 3})
+    a = Foo(1)
+    b = Foo(2)
+    c = Foo(3)
 
-    print(sa.data)
-    print(sb.data)
-    print(sc.data)
+    print(hex(id(a)), hex(id(b)), hex(id(b)))
 
-    sa.data = 2
-
-    print(sa.data)
-    print(sb.data)
-    print(sc.data)
-
-    sb.data = 3
-
-    print(sa.data)
-    print(sb.data)
-    print(sc.data)
-
-    sa.data = 4
-
-    print(sa.data)
-    print(sb.data)
-    print(sc.data)
-
-    print('===+++===+++===')
-
-    sd = Bar({'a': 1})
-    se = Bar({'a': 2})
-    sf = Bar({'a': 3})
-
-    print(sd.a)
-    print(se.a)
-    print(sf.a)
-
-    sd.a = 10
-
-    print(sd.a)
-    print(se.a)
-    print(sf.a)
-
-    se.a = 11
-
-    print(sd.a)
-    print(se.a)
-    print(sf.a)
-
-    sd.a = 12
-
-    print(sd.a)
-    print(se.a)
-    print(sf.a)
