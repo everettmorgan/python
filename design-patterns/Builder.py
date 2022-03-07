@@ -115,8 +115,23 @@ class MealBuilder:
         return meal
 
 
-veg_meal = MealBuilder.veggie()
-non_veg_meal = MealBuilder.non_veggie()
+if __name__ == '__main__':
+    veg_meal = MealBuilder.veggie()
+    non_veg_meal = MealBuilder.non_veggie()
 
-veg_meal.display()
-non_veg_meal.display()
+    veg_meal.display()
+    non_veg_meal.display()
+
+    # === Veggie Meal ===
+    # Item: Veggie Burger 19.99 Packing: Wrapper
+    # Item: Pepsi 4.99 Packing: Bottle
+    # Item: Beef Burger 14.99 Packing: Wrapper
+    # Item: Coke 3.99 Packing: Bottle
+    # Total: 24.98
+    #
+    # === Non-Veggie Meal ===
+    # Item: Veggie Burger 19.99 Packing: Wrapper
+    # Item: Pepsi 4.99 Packing: Bottle
+    # Item: Beef Burger 14.99 Packing: Wrapper
+    # Item: Coke 3.99 Packing: Bottle
+    # Total: 18.98

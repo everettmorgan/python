@@ -39,5 +39,8 @@ if __name__ == '__main__':
     square = factory.get_shape('SQUARE', 3, 3)
     circle = factory.get_shape('CIRCLE', 34)
 
-    print(square.area())
-    print(circle.area())
+    print('square:', square.area())
+    print('circle:', circle.area())
+
+    # square: 9
+    # circle: 3631.681107549801

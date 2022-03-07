@@ -66,3 +66,8 @@ if __name__ == '__main__':
     house_a.tv.toggle()
     print(house_a)
     print(house_b)
+
+    # House 103 kitchen.cooking=True living_room.occupied=False tv.on=True
+    # House 104 kitchen.cooking=False living_room.occupied=True tv.on=False
+    # House 103 kitchen.cooking=False living_room.occupied=False tv.on=False
+    # House 104 kitchen.cooking=False living_room.occupied=False tv.on=False

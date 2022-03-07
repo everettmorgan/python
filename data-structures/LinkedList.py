@@ -133,6 +133,23 @@ if __name__ == '__main__':
 
     ll.print()
 
+    # Node<0x10e735f70>: data=6 next=0x10e735f10 prev=0x10e6d8820
+    # Node<0x10e735f10>: data=6 next=0x10e735eb0 prev=0x10e735f70
+    # Node<0x10e735eb0>: data=6 next=0x10e735e50 prev=0x10e735f10
+    # Node<0x10e735e50>: data=6 next=0x10e735df0 prev=0x10e735eb0
+    # Node<0x10e735df0>: data=5 next=0x10e735dc0 prev=0x10e735e50
+    # Node<0x10e735dc0>: data=5 next=0x10e735d00 prev=0x10e735df0
+    # Node<0x10e735d00>: data=5 next=0x10e735ca0 prev=0x10e735dc0
+    # Node<0x10e735ca0>: data=4 next=0x10e735c40 prev=0x10e735d00
+    # Node<0x10e735c40>: data=4 next=0x10e735be0 prev=0x10e735ca0
+    # Node<0x10e735be0>: data=3 next=0x10e735b80 prev=0x10e735c40
+    # Node<0x10e735b80>: data=3 next=0x10e6f5f10 prev=0x10e735be0
+    # Node<0x10e6f5f10>: data=3 next=0x10e6f5ee0 prev=0x10e735b80
+    # Node<0x10e6f5ee0>: data=3 next=0x10e6f59a0 prev=0x10e6f5f10
+    # Node<0x10e6f59a0>: data=2 next=0x10e6f5640 prev=0x10e6f5ee0
+    # Node<0x10e6f5640>: data=2 next=0x10e6d8820 prev=0x10e6f59a0
+    # Node<0x10e6d8820>: data=1 next=0x10e735f70 prev=0x10e6f5640
+
     ll.purge(4)
 
     ll.remove(ll.find(5))
@@ -140,3 +157,15 @@ if __name__ == '__main__':
     ll.remove(ll.find(5))
 
     ll.print()
+
+    # Node<0x10e735f70>: data=6 next=0x10e735f10 prev=0x10e6d8820
+    # Node<0x10e735f10>: data=6 next=0x10e735eb0 prev=0x10e735f70
+    # Node<0x10e735eb0>: data=6 next=0x10e735e50 prev=0x10e735f10
+    # Node<0x10e735e50>: data=6 next=0x10e735be0 prev=0x10e735eb0
+    # Node<0x10e735be0>: data=3 next=0x10e735b80 prev=0x10e735e50
+    # Node<0x10e735b80>: data=3 next=0x10e6f5f10 prev=0x10e735be0
+    # Node<0x10e6f5f10>: data=3 next=0x10e6f5ee0 prev=0x10e735b80
+    # Node<0x10e6f5ee0>: data=3 next=0x10e6f59a0 prev=0x10e6f5f10
+    # Node<0x10e6f59a0>: data=2 next=0x10e6f5640 prev=0x10e6f5ee0
+    # Node<0x10e6f5640>: data=2 next=0x10e6d8820 prev=0x10e6f59a0
+    # Node<0x10e6d8820>: data=1 next=0x10e735f70 prev=0x10e6f5640
