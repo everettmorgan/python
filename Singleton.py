@@ -18,4 +18,3 @@ if __name__ == '__main__':
     c = Foo(3)
 
     print(hex(id(a)), hex(id(b)), hex(id(b)))
-
