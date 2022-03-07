@@ -1,13 +1,17 @@
+# inherit metaclass properties from `type`
 class Singleton(type):
-    _instances = {}
+    instances = {}
 
     def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+        if cls not in cls.instances:
+            # instance = type(cls).__call__(cls, *args, **kwargs)
+            cls.instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls.instances[cls]
 
 
 class Foo(metaclass=Singleton):
+    # __metaclass__ = Singleton # for python2
+
     def __init__(self, data):
         self.data = data
 
