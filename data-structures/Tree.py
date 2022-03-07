@@ -137,6 +137,28 @@ def breadth_first_perfect_tree_corecursive(node, fn=print):
             curr = stk.pop(0)
 
 
+def inorder_perfect_tree_corecursive(node, fn=print):
+    curr = node
+    stk = []
+
+    # get to start (leftmost + highest node)
+    while curr.left is not None:
+        curr = curr.left
+
+    while True:
+        while curr is not None:
+            fn(curr)
+            if curr.right is not None:
+                stk.insert(0, curr.right)
+            elif curr.left is not None:
+                stk.insert(0, curr.left)
+            if curr.parent is not None:
+                stk.insert(0, curr.parent)
+            if len(stk) == 0:
+                return
+            curr = stk.pop()
+
+
 def print_node(node):
     print(f'    {node.data} ({node.letter})')
 
@@ -161,6 +183,10 @@ if __name__ == '__main__':
     print('BFD Traversal [A,B,C,D,E,F,G]')
     print('  (corecursive)')
     breadth_first_perfect_tree_corecursive(tree, print_node)
+
+    print('In-order Traversal [D,B,E,A,F,C,G]')
+    print('  (corecursive)')
+    inorder_perfect_tree_corecursive(tree, print_node)
 
     #                 7(G)
     #         6(C)
