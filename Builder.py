@@ -100,22 +100,23 @@ class Meal:
 
 
 class MealBuilder:
-    def veggie(self):
+    @staticmethod
+    def veggie():
         meal = Meal('Veggie Meal')
         meal.add_item(VeggieBurger())
         meal.add_item(Pepsi())
         return meal
 
-    def non_veggie(self):
+    @staticmethod
+    def non_veggie():
         meal = Meal('Non-Veggie Meal')
         meal.add_item(BeefBurger())
         meal.add_item(Coke())
         return meal
 
 
-builder = MealBuilder()
-veg_meal = builder.veggie()
-non_veg_meal = builder.non_veggie()
+veg_meal = MealBuilder.veggie()
+non_veg_meal = MealBuilder.non_veggie()
 
 veg_meal.display()
 non_veg_meal.display()
